@@ -33,6 +33,83 @@ func (s SqlAbst) GetDB() *sqlx.DB {
 	return s.Executor.DB
 }
 
+func (s SqlAbst) Get(dest interface{}, query string, args ...interface{}) error {
+	if s.Tx != nil {
+		return s.Tx.Get(dest, query, args)
+	}
+	return s.DB.Get(dest, query, args)
+}
+
+func (s SqlAbst) GetContext(ctx context.Context, dest interface{}, query string, args ...interface{}) error {
+	if s.Tx != nil {
+		return s.Tx.GetContext(ctx, dest, query, args)
+	}
+	return s.DB.GetContext(ctx, dest, query, args)
+}
+
+func (s SqlAbst) MustExec(query string, args ...interface{}) sql.Result {
+	if s.Tx != nil {
+		return s.Tx.MustExec(query, args)
+	}
+	return s.DB.MustExec(query, args)
+}
+
+func (s SqlAbst) MustExecContext(ctx context.Context, query string, args ...interface{}) sql.Result {
+	if s.Tx != nil {
+		return s.Tx.MustExecContext(ctx, query, args)
+	}
+	return s.DB.MustExecContext(ctx, query, args)
+}
+
+func (s SqlAbst) NamedExec(query string, arg interface{}) (sql.Result, error) {
+	if s.Tx != nil {
+		return s.Tx.NamedExec(query, arg)
+	}
+	return s.DB.NamedExec(query, arg)
+}
+
+func (s SqlAbst) NamedExecContext(ctx context.Context, query string, arg interface{}) (sql.Result, error) {
+	if s.Tx != nil {
+		return s.Tx.NamedExecContext(ctx, query, arg)
+	}
+	return s.DB.NamedExecContext(ctx, query, arg)
+}
+
+func (s SqlAbst) NamedQuery(query string, arg interface{}) (*sqlx.Rows, error) {
+	if s.Tx != nil {
+		return s.Tx.NamedQuery(query, arg)
+	}
+	return s.DB.NamedQuery(query, arg)
+}
+
+func (s SqlAbst) PrepareNamed(query string) (*sqlx.NamedStmt, error) {
+	if s.Tx != nil {
+		return s.Tx.PrepareNamed(query)
+	}
+	return s.DB.PrepareNamed(query)
+}
+
+func (s SqlAbst) PrepareNamedContext(ctx context.Context, query string) (*sqlx.NamedStmt, error) {
+	if s.Tx != nil {
+		return s.Tx.PrepareNamedContext(ctx, query)
+	}
+	return s.DB.PrepareNamedContext(ctx, query)
+}
+
+func (s SqlAbst) Preparex(query string) (*sqlx.Stmt, error) {
+	if s.Tx != nil {
+		return s.Tx.Preparex(query)
+	}
+	return s.DB.Preparex(query)
+}
+
+func (s SqlAbst) PreparexContext(ctx context.Context, query string) (*sqlx.Stmt, error) {
+	if s.Tx != nil {
+		return s.Tx.PreparexContext(ctx, query)
+	}
+	return s.DB.PreparexContext(ctx, query)
+}
+
 func (s SqlAbst) Query(query string, args ...any) (*sql.Rows, error) {
 	if s.Tx != nil {
 		return s.Tx.Query(query, args...)
@@ -45,6 +122,41 @@ func (s SqlAbst) QueryContext(ctx context.Context, query string, args ...any) (*
 		return s.Tx.Query(query, args...)
 	}
 	return s.DB.Query(query, args...)
+}
+
+func (s SqlAbst) QueryRowx(query string, args ...interface{}) *sqlx.Row {
+	if s.Tx != nil {
+		return s.Tx.QueryRowx(query, args...)
+	}
+	return s.DB.QueryRowx(query, args...)
+}
+
+func (s SqlAbst) QueryRowxContext(ctx context.Context, query string, args ...interface{}) *sqlx.Row {
+	if s.Tx != nil {
+		return s.Tx.QueryRowxContext(ctx, query, args...)
+	}
+	return s.DB.QueryRowxContext(ctx, query, args...)
+}
+
+func (s SqlAbst) Queryx(query string, args ...interface{}) (*sqlx.Rows, error) {
+	if s.Tx != nil {
+		return s.Tx.Queryx(query, args...)
+	}
+	return s.DB.Queryx(query, args...)
+}
+
+func (s SqlAbst) QueryxContext(ctx context.Context, query string, args ...interface{}) (*sqlx.Rows, error) {
+	if s.Tx != nil {
+		return s.Tx.QueryxContext(ctx, query, args...)
+	}
+	return s.DB.QueryxContext(ctx, query, args...)
+}
+
+func (s SqlAbst) Rebind(query string) string {
+	if s.Tx != nil {
+		return s.Tx.Rebind(query)
+	}
+	return s.DB.Rebind(query)
 }
 
 func (s SqlAbst) Exec(query string, args ...any) (sql.Result, error) {
@@ -87,6 +199,15 @@ func (s SqlAbst) QueryRowContext(ctx context.Context, query string, args ...any)
 		return s.Tx.QueryRowContext(ctx, query, args...)
 	}
 	return s.DB.QueryRowContext(ctx, query, args...)
+}
+
+func (s SqlAbst) Select(dest interface{}, query string, args ...interface{}) error {
+	// If the transaction is not null, start from the Tx
+	if s.Tx != nil {
+		return s.Tx.Select(dest, query, args...)
+	}
+	// start from DB
+	return s.DB.Select(dest, query, args...)
 }
 
 func (s SqlAbst) SelectContext(ctx context.Context, dest interface{}, query string, args ...interface{}) error {
