@@ -1,0 +1,1 @@
+sqlabst is acronym of SQL Abstraction, this is a simple sql abstraction to join tx and db in the same interface. sqlabst also support filtering and updating builder
