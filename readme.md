@@ -15,7 +15,7 @@
 </ol>
 
 # SQLABST
-sqlabst is the acronym for SQL Abstraction, this is a simple sql abstraction to join sqlx.Tx and sqlx.DB in the same interface. sqlabst also supports filtering and updating builder
+sqlabst is the acronym for SQL Abstraction, this is a simple sql abstraction to join sqlx.Tx and sqlx.DB in the same interface
 
 
 # Getting started
