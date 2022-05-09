@@ -8,29 +8,29 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-type Executor struct {
+type executor struct {
 	*sqlx.DB
 }
 
-type ExecutorTx struct {
-	Executor
+type executorTx struct {
+	executor
 	*sqlx.Tx
 }
 
 type SqlAbst struct {
-	ExecutorTx
+	executorTx
 }
 
 func NewSqlAbst(db *sqlx.DB) *SqlAbst {
-	return &SqlAbst{ExecutorTx: ExecutorTx{
-		Executor: Executor{
+	return &SqlAbst{executorTx: executorTx{
+		executor: executor{
 			DB: db,
 		},
 	}}
 }
 
 func (s SqlAbst) GetDB() *sqlx.DB {
-	return s.Executor.DB
+	return s.executor.DB
 }
 
 func (s SqlAbst) Get(dest interface{}, query string, args ...interface{}) error {
