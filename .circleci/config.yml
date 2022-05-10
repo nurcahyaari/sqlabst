@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/repo
     docker:
-      - image: golang:1.18-alpine
+      - image: golang:1.18
     steps:
       - checkout
       - restore_cache:
