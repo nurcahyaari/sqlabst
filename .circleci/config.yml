@@ -1,5 +1,4 @@
 version: 2.1
-
 jobs:
   build:
     working_directory: ~/repo
@@ -20,9 +19,6 @@ jobs:
       - run:
           name: Run tests
           command: go test -v
-      - store_test_results:
-          path: /tmp/test-reports
-          
 workflows:
   sample:
     jobs:
