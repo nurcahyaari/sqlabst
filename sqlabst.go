@@ -110,14 +110,14 @@ func (s SqlAbst) PreparexContext(ctx context.Context, query string) (*sqlx.Stmt,
 	return s.DB.PreparexContext(ctx, query)
 }
 
-func (s SqlAbst) Query(query string, args ...any) (*sql.Rows, error) {
+func (s SqlAbst) Query(query string, args ...interface{}) (*sql.Rows, error) {
 	if s.Tx != nil {
 		return s.Tx.Query(query, args...)
 	}
 	return s.DB.Query(query, args...)
 }
 
-func (s SqlAbst) QueryContext(ctx context.Context, query string, args ...any) (*sql.Rows, error) {
+func (s SqlAbst) QueryContext(ctx context.Context, query string, args ...interface{}) (*sql.Rows, error) {
 	if s.Tx != nil {
 		return s.Tx.Query(query, args...)
 	}
@@ -159,14 +159,14 @@ func (s SqlAbst) Rebind(query string) string {
 	return s.DB.Rebind(query)
 }
 
-func (s SqlAbst) Exec(query string, args ...any) (sql.Result, error) {
+func (s SqlAbst) Exec(query string, args ...interface{}) (sql.Result, error) {
 	if s.Tx != nil {
 		return s.Tx.Exec(query, args...)
 	}
 	return s.DB.Exec(query, args...)
 }
 
-func (s SqlAbst) ExecContext(ctx context.Context, query string, args ...any) (sql.Result, error) {
+func (s SqlAbst) ExecContext(ctx context.Context, query string, args ...interface{}) (sql.Result, error) {
 	if s.Tx != nil {
 		return s.Tx.ExecContext(ctx, query, args...)
 	}
@@ -187,14 +187,14 @@ func (s SqlAbst) PrepareContext(ctx context.Context, query string) (*sql.Stmt, e
 	return s.DB.PrepareContext(ctx, query)
 }
 
-func (s SqlAbst) QueryRow(query string, args ...any) *sql.Row {
+func (s SqlAbst) QueryRow(query string, args ...interface{}) *sql.Row {
 	if s.Tx != nil {
 		return s.Tx.QueryRow(query, args...)
 	}
 	return s.DB.QueryRow(query, args...)
 }
 
-func (s SqlAbst) QueryRowContext(ctx context.Context, query string, args ...any) *sql.Row {
+func (s SqlAbst) QueryRowContext(ctx context.Context, query string, args ...interface{}) *sql.Row {
 	if s.Tx != nil {
 		return s.Tx.QueryRowContext(ctx, query, args...)
 	}

@@ -25,7 +25,7 @@ func TestTxOrDbActived(t *testing.T) {
 		assert.NotNil(t, sqlabst.Tx)
 	})
 
-	t.Run("Test1 - begin null", func(t *testing.T) {
+	t.Run("Test2 - begin null", func(t *testing.T) {
 		db, mock, err := sqlmock.New()
 		if err != nil {
 			t.Fatalf("an error '%s' was not expected when opening a stub database connection", err)
@@ -39,7 +39,7 @@ func TestTxOrDbActived(t *testing.T) {
 		assert.Nil(t, sqlabst.Tx)
 	})
 
-	t.Run("Test1 - begin close", func(t *testing.T) {
+	t.Run("Test3 - begin close", func(t *testing.T) {
 		db, mock, err := sqlmock.New()
 		if err != nil {
 			t.Fatalf("an error '%s' was not expected when opening a stub database connection", err)
