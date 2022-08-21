@@ -296,5 +296,23 @@ func (s *SqlAbst) Rollback() error {
 	err := s.Tx.Rollback()
 	// nulling the Tx
 	s.Tx = nil
+
 	return err
+}
+
+func (s *SqlAbst) WithTransaction(fn func() error) error {
+	err := s.Beginx()
+	if err != nil {
+		return err
+	}
+
+	err = fn()
+	if err != nil {
+		s.Rollback()
+		return err
+	}
+
+	s.Commit()
+
+	return nil
 }
