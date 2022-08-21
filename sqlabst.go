@@ -282,6 +282,8 @@ func (s *SqlAbst) Commit() error {
 		return errors.New("err: the transaction is not started")
 	}
 	err := s.Tx.Commit()
+	// close the transaction
+	s.Close()
 	// nulling the Tx
 	s.Tx = nil
 	return err
@@ -294,6 +296,8 @@ func (s *SqlAbst) Rollback() error {
 		return errors.New("err: the transaction is not started")
 	}
 	err := s.Tx.Rollback()
+	// close the transaction
+	s.Close()
 	// nulling the Tx
 	s.Tx = nil
 	return err
