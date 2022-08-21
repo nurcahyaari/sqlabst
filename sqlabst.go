@@ -312,7 +312,5 @@ func (s *SqlAbst) WithTransaction(fn func() error) error {
 		return err
 	}
 
-	s.Commit()
-
-	return nil
+	return s.Commit()
 }
