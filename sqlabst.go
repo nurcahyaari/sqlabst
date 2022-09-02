@@ -35,30 +35,30 @@ func (s SqlAbst) GetDB() *sqlx.DB {
 
 func (s SqlAbst) Get(dest interface{}, query string, args ...interface{}) error {
 	if s.Tx != nil {
-		return s.Tx.Get(dest, query, args)
+		return s.Tx.Get(dest, query, args...)
 	}
-	return s.DB.Get(dest, query, args)
+	return s.DB.Get(dest, query, args...)
 }
 
 func (s SqlAbst) GetContext(ctx context.Context, dest interface{}, query string, args ...interface{}) error {
 	if s.Tx != nil {
-		return s.Tx.GetContext(ctx, dest, query, args)
+		return s.Tx.GetContext(ctx, dest, query, args...)
 	}
-	return s.DB.GetContext(ctx, dest, query, args)
+	return s.DB.GetContext(ctx, dest, query, args...)
 }
 
 func (s SqlAbst) MustExec(query string, args ...interface{}) sql.Result {
 	if s.Tx != nil {
-		return s.Tx.MustExec(query, args)
+		return s.Tx.MustExec(query, args...)
 	}
-	return s.DB.MustExec(query, args)
+	return s.DB.MustExec(query, args...)
 }
 
 func (s SqlAbst) MustExecContext(ctx context.Context, query string, args ...interface{}) sql.Result {
 	if s.Tx != nil {
-		return s.Tx.MustExecContext(ctx, query, args)
+		return s.Tx.MustExecContext(ctx, query, args...)
 	}
-	return s.DB.MustExecContext(ctx, query, args)
+	return s.DB.MustExecContext(ctx, query, args...)
 }
 
 func (s SqlAbst) NamedExec(query string, arg interface{}) (sql.Result, error) {
